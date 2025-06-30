@@ -1,0 +1,40 @@
+// LaPlateformeTracker Database Schema
+// PostgreSQL DBML
+
+Table student {
+  id integer [primary key, increment]
+  first_name varchar(100) [not null]
+  last_name varchar(100) [not null]
+  age integer [not null]
+  grade varchar(10)
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+Table app_user {
+  id integer [primary key, increment]
+  username varchar(50) [unique, not null]
+  email varchar(100) [unique, not null]
+  password_hash varchar(255) [not null]
+  first_name varchar(100)
+  last_name varchar(100)
+  is_active boolean [default: true]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  last_login timestamp
+}
+
+// Indexes
+// Table student {
+//   indexes {
+//     (last_name, first_name)
+//     age
+//   }
+// }
+
+// Table app_user {
+//   indexes {
+//     username
+//     email
+//   }
+// }

@@ -1,3 +1,9 @@
+# Thibault's stuff
+.vscode/
+.idea/
+target/
+.env
+
 # Compiled class file
 *.class
 
