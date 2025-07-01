@@ -3,6 +3,7 @@
 .idea/
 target/
 .env
+notes.md
 
 # Compiled class file
 *.class
