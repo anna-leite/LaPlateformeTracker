@@ -1,0 +1,83 @@
+laPlateformeTracker/                     # !! an AI suggested repo structure !!
+│
+├── .github/
+│   └── workflows/
+│       └── maven-ci.yml                 # CI build & test pipeline
+│
+├── scripts/
+│   ├── backup.sh                        # Shell script: pg_dump with timestamp
+│   └── restore.sh                       # Shell script: psql restore from a given dump
+│
+├── sql/
+│   ├── init-schema.sql                  # CREATE DATABASE, CREATE TABLE users & students
+│   └── seed-data.sql                    # Optional INSERTs for dev/testing
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/yourorg/app/
+│   │   │       ├── MainApp.java                        # JavaFX entry point
+│   │   │       ├── AppContext.java                     # Holds singletons (services, event bus)
+│   │   │       │
+│   │   │       ├── model/
+│   │   │       │   ├── Student.java
+│   │   │       │   └── User.java
+│   │   │       │
+│   │   │       ├── dao/
+│   │   │       │   ├── DAOFactory.java
+│   │   │       │   ├── StudentRepository.java
+│   │   │       │   ├── PostgresStudentRepository.java
+│   │   │       │   ├── UserRepository.java
+│   │   │       │   └── PostgresUserRepository.java
+│   │   │       │
+│   │   │       ├── service/
+│   │   │       │   ├── AuthService.java
+│   │   │       │   ├── StudentService.java
+│   │   │       │   ├── UserService.java
+│   │   │       │   └── BackupService.java
+│   │   │       │
+│   │   │       ├── util/
+│   │   │       │   ├── DbConnectionManager.java
+│   │   │       │   └── EventBus.java
+│   │   │       │
+│   │   │       ├── ui/
+│   │   │       │   ├── login/
+│   │   │       │   │   ├── LoginController.java
+│   │   │       │   │   └── login.fxml
+│   │   │       │   ├── dashboard/
+│   │   │       │   │   ├── DashboardController.java
+│   │   │       │   │   └── dashboard.fxml
+│   │   │       │   ├── student/
+│   │   │       │   │   ├── StudentListController.java
+│   │   │       │   │   ├── StudentFormController.java
+│   │   │       │   │   ├── student_list.fxml
+│   │   │       │   │   └── student_form.fxml
+│   │   │       │   └── user/
+│   │   │       │       ├── UserListController.java
+│   │   │       │       ├── UserFormController.java
+│   │   │       │       ├── user_list.fxml
+│   │   │       │       └── user_form.fxml
+│   │   │       │
+│   │   │       └── export/
+│   │   │           ├── DataExporter.java
+│   │   │           ├── CsvStudentExporter.java
+│   │   │           └── JsonStudentExporter.java
+│   │   │
+│   │   └── resources/
+│   │       ├── application.properties                   # DB URL, user, password, other settings
+│   │       ├── log4j2.xml                               # Logging configuration
+│   │       └── styles.css                               # JavaFX stylesheet
+│   │
+│   └── test/
+│       ├── java/
+│       │   └── com/yourorg/app/
+│       │       ├── dao/
+│       │       │   └── PostgresStudentRepositoryTest.java
+│       │       └── service/
+│       │           └── StudentServiceTest.java
+│       └── resources/
+│           └── test-application.properties
+│
+├── .gitignore
+├── README.md
+└── pom.xml

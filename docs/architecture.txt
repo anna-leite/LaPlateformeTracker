@@ -4,12 +4,12 @@ laPlateformeTracker/
 │   ├── main/
 │   │   ├── java/
 │   │   │   ├── com/
-│   │   │   │   └── example/          # ?? not sure what we are using for this ?
-│   │   │   │       ├── model/        # Model classes (e.g., Student)
-│   │   │   │       ├── view/         # JavaFX view classes (e.g., UI components)
-│   │   │   │       ├── controller/   # Controller classes (e.g., handling user input)
-│   │   │   │       ├── dao/          # Data Access Object classes (e.g., StudentDAO)
-│   │   │   │       └── utils/        # Utility classes (e.g., for validation, file handling)
+│   │   │       └── example/          # ?? not sure what we are using for this ?
+│   │   │           ├── model/        # Model classes (e.g., Student)
+│   │   │           ├── view/         # JavaFX view classes (e.g., UI components)
+│   │   │           ├── controller/   # Controller classes (e.g., handling user input)
+│   │   │           ├── dao/          # Data Access Object classes (e.g., StudentDAO)
+│   │   │           └── utils/        # Utility classes (e.g., for validation, file handling)
 │   │   │
 │   │   └── resources/                # Resource files (e.g., FXML files, images)
 │   │       ├── fxml/                 # FXML layout files for JavaFX
@@ -28,6 +28,8 @@ laPlateformeTracker/
 │
 ├── scripts/
 │   └── setup-database.sql            # SQL script for setting up the database
+│   └── backup.sh                     # ?
+│   └── restore.sh                    # ?
 │
 ├── .gitignore
 ├── README.md               
