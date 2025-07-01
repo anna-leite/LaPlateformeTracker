@@ -1,5 +1,7 @@
 # LaPlateformeTracker
 
+A JavaFX application to manage students (CRUD, sorting, search, stats, import/export, backups) backed by PostgreSQL.
+
 ## 🛠 Setup
 
 ### 1. Prerequisites
@@ -20,7 +22,7 @@ cd LaPlateformeTracker
 
 ### 3. Configure the Database
 
-1. Start PostgreSQL
+#### 3.1. Start PostgreSQL
 
     **On macOS (Homebrew):**
 
@@ -36,62 +38,84 @@ cd LaPlateformeTracker
 
     **On Windows:**
 
-    Open “pgAdmin” or run “SQL Shell (psql)” from your Start menu.
+    Start “PostgreSQL” service, or launch pgAdmin / SQL Shell (psql).
 
-2. Create a Database User & Database
+#### 3.2. Create a Database User & Database
 
-    Open a psql shell as the postgres superuser:
+1. Switch to the `postgres` system user:
 
     ``` bash
-    psql -U postgres
+    sudo -i -u postgres
     ```
 
-    Inside psql, run:
+2. At the `psql` prompt, run (replace names/passwords as desired):
 
     ``` sql
-    -- Create a dedicated user
-    CREATE ROLE appuser WITH LOGIN PASSWORD 'appPassword';
+    -- 1) Create a dedicated application user
+    CREATE ROLE laplat_tracker_user
+        WITH LOGIN
+            PASSWORD 'ChangeMe123'
+            NOSUPERUSER
+            NOCREATEDB
+            NOCREATEROLE
+            NOINHERIT;
 
-    -- Create the application database
-    CREATE DATABASE studentdb OWNER appuser;
+    -- 2) Create the application database owned by that user
+    CREATE DATABASE laplat_tracker_db
+        WITH OWNER = laplat_tracker_user
+            ENCODING = 'UTF8'
+            LC_COLLATE = 'en_US.UTF-8'
+            LC_CTYPE = 'en_US.UTF-8'
+            TEMPLATE = template0;
 
-    -- Grant all privileges to your user
-    GRANT ALL PRIVILEGES ON DATABASE studentdb TO appuser;
+    -- 3) Grant privileges (optional—owner already has full rights)
+    GRANT ALL PRIVILEGES
+        ON DATABASE laplat_tracker_db
+        TO laplat_tracker_user;
     ```
-3. Initialize Schema
 
-    Exit the psql shell (\q) and apply the schema SQL script:
+3. Exit the postgres shell:
 
-    ```bash
-    psql -U appuser -d studentdb -f sql/init-schema.sql
+    ``` bash
+    \q
+    exit
     ```
 
-4. (Optional) Seed Sample Data
+#### 3.3 Initialize Schema & (Optional) Seed Data
 
-    If you want initial test data (including an admin user), run:
+Now that your database and user exist, run:
 
-    ```bash
-    psql -U appuser -d studentdb -f sql/seed-data.sql
-    ```
-### 4. Configure the Application
+``` bash
+# Apply DDL, triggers, etc.
+psql "postgresql://laplat_tracker_user:ChangeMe123@localhost:5432/laplat_tracker_db" \
+-f sql/init-schema.sql
 
-Copy the example configuration file:
-
-```bash
-cp src/main/resources/application.properties.example src/main/resources/application.properties
+# (Optional) Insert sample students & admin user
+psql "postgresql://laplat_tracker_user:ChangeMe123@localhost:5432/laplat_tracker_db" \
+-f sql/seed-data.sql
 ```
 
-Open src/main/resources/application.properties in your editor and update the database settings if needed:
+### 4. Configure the Application
+
+1. Copy the example properties file:
+
+    ```bash
+    cp src/main/resources/application.properties.example \
+    src/main/resources/application.properties
+    ```
+
+Open `src/main/resources/application.properties` and set:
 
 ``` properties
-# JDBC settings
-db.url=jdbc:postgresql://localhost:5432/studentdb
-db.user=appuser
-db.password=appPassword
+# JDBC settings (point at the DB you just created)
+db.url=jdbc:postgresql://localhost:5432/laplat_tracker_db
+db.user=laplat_tracker_user
+db.password=ChangeMe123
 
-# Application settings
+# App settings
 app.pageSize=20
 backup.dir=backups
+backup.cron=@daily
 ```
 ### 5. Build and Run
 
@@ -123,6 +147,8 @@ java -jar target/LaPlateformeTracker-1.0.0.jar
 - Restore from Backup
 
     ```bash
-    ./scripts/restore.sh backups/2023-07-15_153000_studentdb.sql
+    ./scripts/restore.sh backups/2023-07-15_153000_laplat_tracker_db.sql
     ```
-🎉 You’re now ready to log in and use the LaPlateforme Tracker app! 🎉
+-------
+
+🎉 You’re all set! Open the LaPlateforme Tracker app, log in with the seeded admin (if you ran seed-data.sql), and start managing students. 🎉
