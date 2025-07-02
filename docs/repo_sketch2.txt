@@ -1,0 +1,82 @@
+laPlateformeTracker/                     
+│
+├── .github/
+│   └── workflows/
+│       └── maven-ci.yml                 # CI build & test pipeline
+│
+├── scripts/
+│   ├── backup.sh                        # Shell script: pg_dump with timestamp
+│   └── restore.sh                       # Shell script: psql restore from a given dump
+│
+├── sql/
+│   ├── init-schema.sql                  # CREATE DATABASE, CREATE TABLE users & students
+│   └── seed-data.sql                    # Optional INSERTs for dev/testing
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── /com/example/
+│   │   │       ├── App.java                            # JavaFX entry point
+│   │   │       ├── AppContext.java                     # loads config & holds singletons (DB manager, repositories, services, event bus)
+│   │   │       │
+│   │   │       ├── model/
+│   │   │       │   ├── Student.java
+│   │   │       │   └── User.java
+│   │   │       │
+│   │   │       ├── dao/                                # Data Access Object layer; responsible for all direct interactions with DB
+│   │   │       │   ├── DAOFactory.java                 # factory/builder to hide the choice of implementation from the rest of the code
+│   │   │       │   ├── StudentRepository.java          # an interface defining student-related CRUD operations
+│   │   │       │   ├── PostgresStudentRepository.java  # implements StudentRepository using JDBC and prepared statements.
+│   │   │       │   ├── UserRepository.java             # as above, interface defining user-related CRUD operations
+│   │   │       │   └── PostgresUserRepository.java     # as above, implements UserRepository using JDBC and prepared statements.
+│   │   │       │
+│   │   │       ├── service/                            # business logic, transactions, validation
+│   │   │       │   ├── AuthService.java                # Manages login, logout, and session state. Calls UserRepository. 
+│   │   │       │   ├── StudentService.java             # implements all student-related logic: creation, update, deletion, search, sorting, pagination. Uses StudentRepository.
+│   │   │       │   ├── UserService.java                # similar to StudentService but for user administration: add, update, delete, list users.
+│   │   │       │   └── BackupService.java              # manages backups of db
+│   │   │       │
+│   │   │       ├── util/                               # Low-level helper classes
+│   │   │       │   ├── DbConnectionManager.java        # create & manage JDBC Connection objects *pool? loads application.properties
+│   │   │       │   └── EventBus.java                   # lets different parts of the app publish & subscribe to named events, decoupling senders from receivers. e.g.update student
+│   │   │       │
+│   │   │       ├── controller/                         # JavaFX controllers (goes between view & service)
+│   │   │       │   ├── LoginController.java
+│   │   │       │   ├── DashboardController.java
+│   │   │       │   ├── student/
+│   │   │       │   │   ├── StudentListController.java
+│   │   │       │   │   └── StudentFormController.java
+│   │   │       │   └── user/
+│   │   │       │       ├── UserListController.java
+|   │   │       |       └── UserFormController.java
+│   │   │       │
+│   │   │       └── export/
+│   │   │           ├── DataExporter.java
+│   │   │           ├── CsvStudentExporter.java
+│   │   │           └── JsonStudentExporter.java
+│   │   │
+│   │   └── resources/
+│   │       ├── application.properties                   # DB URL, user, password, other settings
+│   │       ├── log4j2.xml                               # Logging configuration
+│   │       └── styles.css                               # JavaFX stylesheet
+│   │       └── views/                                   # all FXMLs
+|   │           ├── login.fxml
+|   │           ├── dashboard.fxml
+|   │           ├── student_list.fxml
+|   │           ├── student_form.fxml
+|   │           ├── user_list.fxml
+|   │           └── user_form.fxml
+|   │   
+│   └── test/
+│       ├── java/
+│       │   └── com/example/
+│       │       ├── dao/
+│       │       │   └── PostgresStudentRepositoryTest.java
+│       │       └── service/
+│       │           └── StudentServiceTest.java
+│       └── resources/
+│           └── test-application.properties
+│
+├── .gitignore
+├── README.md
+└── pom.xml
