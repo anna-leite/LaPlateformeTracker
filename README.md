@@ -26,19 +26,19 @@ cd LaPlateformeTracker
 
     **On macOS (Homebrew):**
 
-    ```bash
-    brew services start postgresql
-    ```
+```bash
+brew services start postgresql
+```
 
-    **On Linux (systemd):**
+**On Linux (systemd):**
 
-    ``` bash
-    sudo systemctl start postgresql
-    ```
+``` bash
+sudo systemctl start postgresql
+```
 
-    **On Windows:**
+**On Windows:**
 
-    Start “PostgreSQL” service, or launch pgAdmin / SQL Shell (psql).
+Start “PostgreSQL” service, or launch pgAdmin / SQL Shell (psql).
 
 #### 3.2. Create a Database User & Database
 
