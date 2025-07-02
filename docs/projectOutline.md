@@ -1,152 +1,309 @@
-### Day 1: Project Kickoff & Foundation
+# En: La Plateforme Tracker
 
-- Kickoff: 
-    - scope, repo layout (per “repo sketch”), branch strategy, communication.
-- Environment & CI:
-    - Install JDK, Maven, JavaFX, IDE extensions, Postegres.
-    - Create GitHub repo, add .github/workflows/maven-ci.yml stub.
-- DB schema & connection:
-    - Dev A writes sql/init-schema.sql (users + students tables).
-    - Dev A implements DbConnectionManager.java (reads application.properties).
-    - Dev B sets up application.properties template and test override.
-    - Dev C writes README’s “Setup” section: Postgres install, run init-schema.
+## Student Management System
 
-Deliverables:
+**Duration:** 9 Days (Monday to Friday)
 
-- init-schema.sql, DbConnectionManager, application.properties stub, README updated.
+**Team Members:** Anna, Thibault & Leila
 
-### Day 2: DAO Interfaces & Core CRUD
+**Technologies:** Java, JavaFX, PostgreSQL, JDBC, CSV/XML/JSON for data
+import/export
 
-Dev A:
-- Define StudentRepository.java interface (add/update/delete/findById/findAll).
-- Start UserRepository.java (authenticate/add/list).
+### Monday 30th: Project Setup and Database Design
 
-Dev B:
-- Implement PostgresStudentRepository.java (CRUD with PreparedStatements).
-- Write basic JUnit tests for “add” and “findById” against a test DB.
+-   **Tasks:**
 
-Dev C:
-- Implement PostgresUserRepository.java#authenticate().
-- Tests for valid/invalid login.
-All by EOD:
-- Passing tests for core DAO methods.
+    -   Set up version control (Git) and project repository.
+    -   Install necessary tools (Java, PostgreSQL, JavaFX, IDE).
+    -   Design the database schema for the "student" table.
+    -   Create the PostgreSQL database and the "student" table.
 
-### Day 3: JavaFX Skeleton + Login Flow
+-   **Responsibilities:**
 
-Dev A:
-- Create MainApp.java (launches login.fxml).
-- FXML + LoginController.java with user/password fields + “Login” button stub.
+    -   **Anna:** Set up version control and project structure.
+    -   **Thibault:** Design and implement the database schema.
+    -   **Leila:** Set up database connection configurations.
 
-Dev B:
-- Implement AuthService.java (calls UserRepository.authenticate(); stores current user in AppContext).
-- Hook LoginController to AuthService. On success, load dashboard.fxml.
+### Tuesday 1st: Basic CRUD Operations
 
-Dev C:
-- Write DashboardController.java with empty TabPane (“Students” & “Users” tabs).
-- Add event-based placeholder to show “not authorized” if user lacks role.
-Deliverables:
-- Login & dashboard shell working end-to-end (no error crashes).
+-   **Tasks:**
 
+    -   Implement the database connection class.
+    -   Create methods for basic CRUD operations (Add, Modify, Delete, Show All, Search).
 
-### Day 4: Student UI & Integration
+-   **Responsibilities:**
 
-Dev A:
-- FXML + StudentListController.java: TableView, “Add/Edit/Delete” buttons.
-- Bind TableView to ObservableList<Student> from StudentService.findAll().
+    -   **Developer 1:** Implement database connection class.
+    -   **Developer 2:** Implement Add and Show All methods.
+    -   **Developer 3:** Implement Modify and Delete methods.
 
-Dev B:
-- Implement StudentService.java (wraps repository calls, does validation, fires change events).
-- FXML + StudentFormController.java (form to add/edit with fields + “Save” button).
+### Wednesday 2nd: JavaFX User Interface Development
 
-Dev C:
-- Wire “Add” button to open student_form.fxml in modal, call StudentService.add().
-- Write integration tests: form → DAO → DB → List refresh.
-Deliverables:
-- Full Student CRUD through JavaFX UI.
+-   **Tasks:**
 
-### Day 5: User Management & Authentication Enforcement
+    -   Design the JavaFX GUI layout for user interactions (using FXML or programmatically).
+    -   Implement input handling for adding, modifying, and deleting students.
 
-Dev A:
-- FXML + UserListController.java with TableView, “Add User” button.
-- Bind to UserService.listUsers().
+-   **Responsibilities:**
 
-Dev B:
-- Implement UserService.java (addUser with salt+hash, listUsers).
-- UserFormController.java (username/password/role form) + hook to UserService.
+    -   **Developer 1:** Design and implement the main GUI layout.
+    -   **Developer 2:** Create forms for adding and modifying student details.
+    -   **Developer 3:** Integrate CRUD operations with the JavaFX interface.
 
-Dev C:
-- Secure the “Users” tab: only show if currentUser.role == "ADMIN".
-- Tests: non-admin login cannot see user management; admin can.
-Deliverables:
-- User CRUD & role-based UI access.
+### Thursday 3rd: Testing and Documentation
 
-### Day 6: Sorting, Filtering & Advanced Search
+-   **Tasks:**
 
-Dev A:
-- Service/DAO: add findByCriteria(ageMin, ageMax, gradeMin…).
-- Expose this in StudentService.
+    -   Test all implemented features for functionality and robustness.
+    -   Document the code with comments and explanations.
 
-Dev B:
-- In StudentListController: add sort ComboBoxes (FirstName, LastName, Age, Grade).
-- Add filter fields (min/max) + “Search” button → calls findByCriteria.
+-   **Responsibilities:**
 
-Dev C:
-- Implement Strategy pattern for sorting (Comparator factories).
-- Use JavaFX FilteredList + SortedList for efficient table updates.
-Deliverables:
-- Sorting & advanced search UI functioning.
+    -   **Developer 1:** Conduct tests on CRUD operations.
+    -   **Developer 2:** Document the database connection class.
+    -   **Developer 3:** Document the JavaFX user interface and input handling.
 
-### Day 7: Statistics, Pagination & Backup Trigger
+### Friday 4th: Sorting and Advanced Search
 
-Dev A:
-- DAO & StudentService: double averageGrade(), Map<Integer,Long> countByAge().
-- Pagination: findPage(int page, int pageSize).
+-   **Tasks:**
 
-Dev B:
-- Add “Statistics” view or section: show avg grade & age-group counts in labels or mini-chart.
-- In StudentList view add pagination controls (Prev/Next + page number).
+    -   Implement sorting functionality for the student list in the GUI.
+    -   Develop advanced search capabilities based on age and grade.
 
-Dev C:
-- Implement BackupService subscribing to student/user change events via a simple EventBus.
-- BackupService runs a shell pg_dump (using ProcessBuilder) into backups/ with timestamp.
-Deliverables:
-- Statistics panel, pagination working, and backups triggered on every add/update/delete.
+-   **Responsibilities:**
 
-### Day 8: Import/Export & Error Handling
+    -   **Developer 1:** Implement sorting methods and integrate with the GUI.
+    -   **Developer 2:** Implement advanced search methods and integrate with the GUI.
+    -   **Developer 3:** Test sorting and search functionalities.
 
-Dev A:
-- Template Method base DataExporter<T>, CsvStudentExporter + hook to UI (“Export CSV”).
-- Similar for JsonStudentExporter.
+### Monday 7th: Statistics and Data Import/Export
 
-Dev B:
-- DataImporter<T> abstract + CsvStudentImporter.
-- UI dialogs to choose a file and import (with progress/confirmation).
+-   **Tasks:**
 
-Dev C:
-- Centralize error handling: catch exceptions in services/controllers, show Alert dialogs with friendly messages & retry options.
-- Write integration tests for import/export round-trip and error cases.
-Deliverables:
-- CSV/JSON import-export flows, robust error dialogs.
+    -   Calculate and display student statistics (average grades, age distribution) in the GUI.
+    -   Implement data import/export functionality for CSV, XML, and JSON.
 
-### Day 9: Polish, CI, Docs & Demo Prep
+-   **Responsibilities:**
 
-Dev A:
-- Final code cleanup: remove unused imports, ensure consistent style, JavaDoc on public APIs.
-- Update pom.xml with JavaFX plugin, shade, or assembly for runnable jar.
+    -   **Developer 1:** Implement statistics calculation and display in the GUI.
+    -   **Developer 2:** Implement data import/export methods.
+    -   **Developer 3:** Integrate statistics and import/export into the JavaFX interface.
 
-Dev B:
-- Write or finalize README.md: setup, run, backup/restore, import/export, troubleshooting.
-- Fill out application.properties.example.
+### Tuesday 8th: Pagination and Improved Error Handling
 
-Dev C:
-- Complete CI workflow: run mvn test, mvn javafx:run smoke check, lint.
-- Prepare demo: short slides or live-run script covering login, CRUD, search, stats, import/export, backup.
-All (late afternoon):
-- Team demo rehearsal, quick Q&A.
-- Merge all feature branches into main, tag v1.0-release.
+-   **Tasks:**
 
-### Summary of schedule:
+    -   Implement pagination for displaying students in the GUI.
+    -   Enhance error handling with clearer messages and recovery options.
 
-- **Week 1** (Days 1–5) from zero up to full Student + User CRUD and auth
-- **Week 2** (Days 6–9) add sorting/search, stats/pagination, import/export, backup, polish and deliver.
+-   **Responsibilities:**
 
+    -   **Developer 1:** Implement pagination logic and integrate with the GUI.
+    -   **Developer 2:** Improve error handling in CRUD operations.
+    -   **Developer 3:** Test pagination and error handling.
+
+### Wednesday 9th: Authentication System and Final Testing
+
+-   **Tasks:**
+
+    -   Develop a simple authentication system (username/password) for the GUI.
+    -   Conduct thorough testing of all features and fix any identified bugs.
+
+-   **Responsibilities:**
+
+    -   **Developer 1:** Implement authentication logic and integrate with the GUI.
+    -   **Developer 2:** Test authentication functionality.
+    -   **Developer 3:** Conduct final testing and bug fixing.
+
+### Thursday 10th: Documentation, Presentation Preparation, and Deployment
+
+-   **Tasks:**
+
+    -   Finalize documentation for the project, including setup instructions and user guides.
+    -   Prepare the application for deployment on a free hosting service.
+    -   Prepare presentation materials for the final day.
+
+-   **Responsibilities:**
+
+    -   **Developer 1:** Finalize project documentation.
+    -   **Developer 2:** Prepare deployment instructions.
+    -   **Developer 3:** Create presentation slides and rehearse the presentation.
+
+### Friday 11th: Soutenance :
+
+**Presentation Preparation in group**: Demo and highlight the key features of our application, the technologies used, and the challenges we faced during development.
+
+## Summary of Responsibilities
+
+-   **Developer 1:** Project setup, database connection, JavaFX GUI design, sorting, statistics, pagination, authentication, documentation.
+-   **Developer 2:** Database schema, CRUD operations, input handling, advanced search, data import/export, error handling, testing.
+-   **Developer 3:** Version control, JavaFX UI integration, testing, authentication, final testing, presentation preparation.
+
+## Teamwork:
+
+1.  **Daily **meetings** **& Google chat**:** For communication
+2.  **Trello Kanban Board:** For organisation and time management
+3.  **Version Control:** Commit changes regularly to avoid conflicts & use meaningful commit messages to track changes effectively.
+
+### Features:
+
+-   **Modular Development**
+-   **User Experience**
+-   **Error Handling**
+-   **Documentation**
+-   **Testing**
+
+# **Fr : La Plateforme Tracker**
+
+## **Système de gestion des étudiants**
+
+**Durée :** 9 jours (du lundi au vendredi)
+
+**Membres de l'équipe** : Anna, Thibault & Leila
+
+**Technologies** :  Java, JavaFX, PostgreSQL, JDBC, CSV/XML/JSON pour l'import/export de données
+
+### Lundi 30 : Mise en place du projet et conception de la base de données
+
+-   **Tâches** :
+
+    -   Mise en place du contrôle de version (Git) et du référentiel du projet.
+    -   Installer les outils nécessaires (Java, PostgreSQL, JavaFX, IDE).
+    -   Concevoir le schéma de la base de données pour la table "étudiant".
+    -   Créer la base de données PostgreSQL et la table "étudiant".
+
+-   **Responsabilités** :
+
+    -   Anna : Mettre en place le contrôle de version et la structure du projet.
+    -   Thibault : Concevoir et implémenter le schéma de la base de données.
+    -   Leila : Mettre en place les configurations de connexion à la base de données.
+
+### Mardi 1 : Opérations CRUD de base
+
+-   **Tâches** :
+
+    -   Implémenter la classe de connexion à la base de données.
+    -   Créer des méthodes pour les opérations CRUD de base (Ajouter,
+        Modifier, Supprimer, Afficher tout, Rechercher).
+
+-   **Responsabilités** :
+
+    -   **Développeur 1** : Implémenter la classe de connexion à la base de données.
+    -   **Développeur 2** : Implémenter les méthodes Add et Show All.
+    -   **Développeur 3** : Implémenter les méthodes Modifier et Supprimer.
+
+### Mercredi 2 : Développement de l'interface utilisateur JavaFX
+
+-   **Tâches** :
+
+    -   Concevoir la disposition de l'interface graphique JavaFX pour les interactions avec l'utilisateur (à l'aide de FXML ou par programmation).
+    -   Mettre en œuvre la gestion des entrées pour l'ajout, la modification et la suppression d'étudiants.
+
+-   **Responsabilités** :
+
+    -   **Développeur 1** : Concevoir et mettre en œuvre la présentation principale de l'interface graphique.
+    -   **Développeur 2** : Créer des formulaires pour ajouter et modifier les détails des étudiants.
+    -   **Développeur 3** : Intégrer les opérations CRUD avec l'interface JavaFX.
+
+### Jeudi 3 : Test et documentation
+
+-   **Tâches** :
+
+    -   Tester toutes les caractéristiques implémentées pour la fonctionnalité et la robustesse.
+    -   Documenter le code avec des commentaires et des explications.
+
+-   **Responsabilités** :
+
+    -   **Développeur 1** : Effectuer des tests sur les opérations CRUD.
+    -   **Développeur 2** : Documenter la classe de connexion à la base de données.
+    -   **Développeur 3** : Documenter l'interface utilisateur JavaFX et la gestion des entrées.
+
+### Vendredi 4 : Tri et recherche avancée
+
+-   **Tâches** :
+
+    -   Mettre en œuvre la fonctionnalité de tri pour la liste des étudiants dans l'interface graphique.
+    -   Développer des capacités de recherche avancée basées sur l'âge et le niveau scolaire.
+
+-   **Responsabilités** :
+
+    -   **Développeur 1** : Mettre en œuvre les méthodes de tri et les intégrer à l'interface graphique.
+    -   **Développeur 2** : Mettre en œuvre des méthodes de recherche avancée et les intégrer à l'interface graphique.
+    -   **Développeur 3** : Tester les fonctionnalités de tri et de recherche.
+
+### Lundi 7 : Statistiques et importation/exportation de données
+
+-   **Tâches** :
+
+    -   Calculer et afficher les statistiques des étudiants (notes moyennes, répartition par âge) dans l'interface graphique.
+    -   Implémenter la fonctionnalité d'import/export de données pour CSV, XML, et JSON.
+
+-   **Responsabilités** :
+
+    -   **Développeur 1** : Mettre en œuvre le calcul et l'affichage des statistiques dans l'interface graphique.
+    -   **Développeur 2** : Implémenter les méthodes d'importation/exportation de données.
+    -   **Développeur 3** : Intégrer les statistiques et l'import/export dans l'interface JavaFX.
+
+### Mardi 8 : Pagination et amélioration de la gestion des erreurs
+
+-   **Tâches :**
+
+    -   Implémenter la pagination pour l'affichage des étudiants dans l'interface graphique.
+    -   Améliorer la gestion des erreurs avec des messages plus clairs et des options de récupération.
+
+-   **Responsabilités** :
+
+    -   **Développeur 1** : Implémenter la logique de pagination et l'intégrer à l'interface graphique.
+    -   **Développeur 2** : Améliorer la gestion des erreurs dans les opérations CRUD.
+    -   **Développeur 3** : Tester la pagination et la gestion des erreurs.
+
+### Mercredi 9 : Système d'authentification et test final
+
+-   **Tâches** :
+
+    -   Développer un système d'authentification simple (nom d'utilisateur/mot de passe) pour l'interface graphique.
+    -   Effectuer des tests approfondis de toutes les fonctionnalités et corriger les bogues identifiés.
+
+-   **Responsabilités** :
+
+    -   **Développeur 1** : Mettre en œuvre la logique d'authentification et l'intégrer à l'interface graphique.
+    -   **Développeur 2** : Tester la fonctionnalité d'authentification.
+    -   **Développeur 3** : Effectuer les tests finaux et la correction des bogues.
+
+### **Jeudi 10 : Documentation, préparation de la présentation et déploiement**
+
+-   **Tâches** :
+
+    -   Finaliser la documentation du projet, y compris les instructions d'installation et les guides d'utilisation.
+    -   Préparer l'application pour le déploiement sur un service d'hébergement gratuit.
+    -   Préparer le matériel de présentation pour le dernier jour.
+
+-   **Responsabilités** :
+
+    -   **Développeur 1** : Finaliser la documentation du projet.
+    -   **Développeur 2** : Préparer les instructions de déploiement.
+    -   **Développeur 3** : Créer les diapositives de présentation et répéter la présentation.
+
+### Vendredi 11 : Soutenance :
+
+**Préparation de la présentation en groupe** : Démonstration et mise en évidence des caractéristiques clés de notre application, des technologies utilisées et des défis auxquels nous avons été confrontés pendant le développement.
+
+### Résumé des responsabilités
+
+-   **Développeur 1** : Mise en place du projet, connexion à la base de données, conception de l'interface graphique JavaFX, tri, statistiques, pagination, authentification, documentation.
+-   **Développeur 2** : Schéma de la base de données, opérations CRUD, gestion des entrées, recherche avancée, importation/exportation de données, gestion des erreurs, tests.
+-   **Développeur 3** : Contrôle de version, intégration de l'interface utilisateur JavaFX, tests, authentification, tests finaux, préparation de la présentation.
+
+### Travail en équipe :
+
+-   **Réunions quotidiens et Google chat** : Pour la communication
+-   **Trello Kanban Board** : Pour l'organisation et la gestion du temps
+-   **Contrôle de version** : Validation des modifications régulièrement pour éviter les conflits et utilisation de messages de validation significatifs pour suivre les modifications de manière efficace.
+
+### Caractéristiques :
+
+-   **Développement modulaire**
+-   **Expérience utilisateur**
+-   **Gestion des erreurs**
+-   **Documentation**
+-   **Test**
