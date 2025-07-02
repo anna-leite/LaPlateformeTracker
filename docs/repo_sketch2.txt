@@ -15,7 +15,7 @@ laPlateformeTracker/                     # !! an AI suggested repo structure !!
 ├── src/
 │   ├── main/
 │   │   ├── java/
-│   │   │   └── com/yourorg/app/
+│   │   │   └── /com/example/
 │   │   │       ├── MainApp.java                        # JavaFX entry point
 │   │   │       ├── AppContext.java                     # Holds singletons (services, event bus)
 │   │   │       │
@@ -23,40 +23,32 @@ laPlateformeTracker/                     # !! an AI suggested repo structure !!
 │   │   │       │   ├── Student.java
 │   │   │       │   └── User.java
 │   │   │       │
-│   │   │       ├── dao/
-│   │   │       │   ├── DAOFactory.java
-│   │   │       │   ├── StudentRepository.java
-│   │   │       │   ├── PostgresStudentRepository.java
-│   │   │       │   ├── UserRepository.java
-│   │   │       │   └── PostgresUserRepository.java
+│   │   │       ├── dao/                                # Data Access Object layer; responsible for all direct interactions with DB
+│   │   │       │   ├── DAOFactory.java                 # Factory/builder to hide the choice of implementation from the rest of the code
+│   │   │       │   ├── StudentRepository.java          # An interface defining student-related CRUD operations
+│   │   │       │   ├── PostgresStudentRepository.java  # Implements StudentRepository using JDBC and prepared statements.
+│   │   │       │   ├── UserRepository.java             # as above, interface defining user-related CRUD operations
+│   │   │       │   └── PostgresUserRepository.java     # as above, implements UserRepository using JDBC and prepared statements.
 │   │   │       │
-│   │   │       ├── service/
+│   │   │       ├── service/                             # business logic, transactions, validation
 │   │   │       │   ├── AuthService.java
 │   │   │       │   ├── StudentService.java
 │   │   │       │   ├── UserService.java
 │   │   │       │   └── BackupService.java
 │   │   │       │
-│   │   │       ├── util/
+│   │   │       ├── util/                                # Low-level helpers
 │   │   │       │   ├── DbConnectionManager.java
 │   │   │       │   └── EventBus.java
 │   │   │       │
-│   │   │       ├── ui/
-│   │   │       │   ├── login/
-│   │   │       │   │   ├── LoginController.java
-│   │   │       │   │   └── login.fxml
-│   │   │       │   ├── dashboard/
-│   │   │       │   │   ├── DashboardController.java
-│   │   │       │   │   └── dashboard.fxml
+│   │   │       ├── controller/                          # JavaFX controllers (goes between view & service)
+│   │   │       │   ├── LoginController.java
+│   │   │       │   ├── DashboardController.java
 │   │   │       │   ├── student/
 │   │   │       │   │   ├── StudentListController.java
-│   │   │       │   │   ├── StudentFormController.java
-│   │   │       │   │   ├── student_list.fxml
-│   │   │       │   │   └── student_form.fxml
+│   │   │       │   │   └── StudentFormController.java
 │   │   │       │   └── user/
 │   │   │       │       ├── UserListController.java
-│   │   │       │       ├── UserFormController.java
-│   │   │       │       ├── user_list.fxml
-│   │   │       │       └── user_form.fxml
+|   │   │       |       └──  UserFormController.java
 │   │   │       │
 │   │   │       └── export/
 │   │   │           ├── DataExporter.java
@@ -67,10 +59,17 @@ laPlateformeTracker/                     # !! an AI suggested repo structure !!
 │   │       ├── application.properties                   # DB URL, user, password, other settings
 │   │       ├── log4j2.xml                               # Logging configuration
 │   │       └── styles.css                               # JavaFX stylesheet
-│   │
+│   │       └── views/                                   # all FXMLs
+    │           ├── login.fxml
+    │           ├── dashboard.fxml
+    │           ├── student_list.fxml
+    │           ├── student_form.fxml
+    │           ├── user_list.fxml
+    │           └── user_form.fxml
+    │   
 │   └── test/
 │       ├── java/
-│       │   └── com/yourorg/app/
+│       │   └── com/example/
 │       │       ├── dao/
 │       │       │   └── PostgresStudentRepositoryTest.java
 │       │       └── service/
