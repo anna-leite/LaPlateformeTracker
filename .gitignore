@@ -5,6 +5,9 @@ target/
 .env
 notes.md
 
+# Leila's stuff
+.envrc
+
 # Compiled class file
 *.class
 
