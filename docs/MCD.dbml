@@ -6,7 +6,6 @@ Table student {
   first_name varchar(100) [not null]
   last_name varchar(100) [not null]
   age integer [not null]
-  specialization varchar(100) [not null]
   grade varchar(10)
   created_at timestamp [default: `now()`]
   updated_at timestamp [default: `now()`]

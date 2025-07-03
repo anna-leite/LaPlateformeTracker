@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.StudentListController">
+   <children>
+      <!-- Header -->
+      <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="header-section">
+         <children>
+            <Label styleClass="page-title" text="Gestion des Étudiants" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="addStudentBtn" onAction="#handleAddStudent" styleClass="primary-button" text="Nouvel Étudiant" />
+            <Button fx:id="exportBtn" onAction="#handleExport" styleClass="secondary-button" text="Exporter" />
+            <Button fx:id="importBtn" onAction="#handleImport" styleClass="secondary-button" text="Importer" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </HBox>
+      
+      <!-- Search and Filter Section -->
+      <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="filter-section">
+         <children>
+            <Label text="Recherche:" />
+            <TextField fx:id="searchField" promptText="Prénom ou nom..." HBox.hgrow="ALWAYS" />
+            <Label text="Note:" />
+            <ComboBox fx:id="gradeFilterCombo" prefWidth="100.0" promptText="Toutes" />
+            <Label text="Âge:" />
+            <Spinner fx:id="minAgeSpinner" prefWidth="70.0" />
+            <Label text="-" />
+            <Spinner fx:id="maxAgeSpinner" prefWidth="70.0" />
+            <Button fx:id="searchBtn" onAction="#handleSearch" styleClass="primary-button" text="Rechercher" />
+            <Button fx:id="clearBtn" onAction="#handleClearSearch" styleClass="secondary-button" text="Effacer" />
+            <Button fx:id="refreshBtn" onAction="#handleRefresh" styleClass="secondary-button" text="⟳" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      
+      <!-- Statistics Section -->
+      <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="stats-section">
+         <children>
+            <Label fx:id="totalStudentsLabel" styleClass="stat-label" text="Total: 0" />
+            <Label fx:id="averageAgeLabel" styleClass="stat-label" text="Âge moyen: 0.0" />
+            <Label fx:id="averageGradeLabel" styleClass="stat-label" text="Note moyenne: 0.0" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Trier par:" />
+            <ComboBox fx:id="sortCombo" onAction="#handleSort" prefWidth="150.0" />
+            <CheckBox fx:id="sortDescCheckbox" onAction="#handleSort" text="Desc" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      
+      <!-- Students Table -->
+      <TableView fx:id="studentsTable" VBox.vgrow="ALWAYS">
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="60.0" text="ID" />
+            <TableColumn fx:id="firstNameColumn" prefWidth="120.0" text="Prénom" />
+            <TableColumn fx:id="lastNameColumn" prefWidth="120.0" text="Nom" />
+            <TableColumn fx:id="ageColumn" prefWidth="80.0" text="Âge" />
+            <TableColumn fx:id="gradeColumn" prefWidth="100.0" text="Note" />
+            <TableColumn fx:id="createdAtColumn" prefWidth="120.0" text="Créé le" />
+            <TableColumn fx:id="actionsColumn" prefWidth="120.0" text="Actions" />
+         </columns>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </TableView>
+      
+      <!-- Pagination -->
+      <HBox alignment="CENTER" spacing="10.0" styleClass="pagination-section">
+         <children>
+            <Label text="Éléments par page:" />
+            <ComboBox fx:id="pageSizeCombo" onAction="#handlePageSizeChange" prefWidth="80.0" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="firstPageBtn" onAction="#handleFirstPage" text="⏮" />
+            <Button fx:id="prevPageBtn" onAction="#handlePrevPage" text="◀" />
+            <Label fx:id="pageInfoLabel" text="Page 1 sur 1" />
+            <Button fx:id="nextPageBtn" onAction="#handleNextPage" text="▶" />
+            <Button fx:id="lastPageBtn" onAction="#handleLastPage" text="⏭" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="totalRecordsLabel" text="0 étudiants" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

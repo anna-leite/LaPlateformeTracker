@@ -3,7 +3,6 @@ CREATE TABLE "student" (
   "first_name" varchar(100) NOT NULL,
   "last_name" varchar(100) NOT NULL,
   "age" integer NOT NULL,
-  "specialization" varchar(100) NOT NULL,
   "grade" varchar(10),
   "created_at" timestamp DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())
