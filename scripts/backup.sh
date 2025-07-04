@@ -17,7 +17,7 @@ PGHOST="${PGHOST:-localhost}"
 PGPORT="${PGPORT:-5432}"
 PGUSER="${PGUSER:-laplat_tracker_user}"
 PGDATABASE="${PGDATABASE:-laplat_tracker_db}"
-# Uncomment if you prefer to pass password via PGPASSWORD env var:
+# Uncomment if prefer to pass password via PGPASSWORD env var:
 # export PGPASSWORD="ChangeMe123!"
 
 # Number of backups to keep (oldest beyond this number will be pruned)
