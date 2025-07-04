@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.DashboardController">
+   <top>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+            <Label styleClass="header" text="La Plateforme Tracker">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="userLabel" text="Connecté en tant que: " />
+            <Button fx:id="logoutButton" onAction="#handleLogout" text="Déconnexion" />
+        </items>
+      </ToolBar>
+   </top>
+   <left>
+      <VBox prefWidth="200.0" styleClass="sidebar">
+         <children>
+            <Label styleClass="sub-header" text="NAVIGATION" textFill="WHITE">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="studentsButton" onAction="#showStudents" styleClass="sidebar-button" text="📚 Gestion des Étudiants" />
+            <Button fx:id="usersButton" onAction="#showUsers" styleClass="sidebar-button" text="👥 Gestion des Utilisateurs" />
+            <Button fx:id="statisticsButton" onAction="#showStatistics" styleClass="sidebar-button" text="📊 Statistiques" />
+            <Button fx:id="backupButton" onAction="#showBackup" styleClass="sidebar-button" text="💾 Sauvegardes" />
+            <Button fx:id="exportButton" onAction="#showExport" styleClass="sidebar-button" text="📤 Export/Import" />
+            <Region VBox.vgrow="ALWAYS" />
+            <Button fx:id="settingsButton" onAction="#showSettings" styleClass="sidebar-button" text="⚙️ Paramètres" />
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <StackPane fx:id="contentArea">
+         <children>
+            <VBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <Label styleClass="header" text="Tableau de Bord" />
+                  <GridPane alignment="CENTER" hgap="20.0" vgap="20.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <VBox alignment="CENTER" onMouseClicked="#showStudents" styleClass="dashboard-tile">
+                           <children>
+                              <Label styleClass="header" text="📚" textFill="#3498db">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalStudentsLabel" styleClass="sub-header" text="0" />
+                              <Label text="Étudiants" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" onMouseClicked="#showUsers" styleClass="dashboard-tile" GridPane.columnIndex="1">
+                           <children>
+                              <Label styleClass="header" text="👥" textFill="#e74c3c">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalUsersLabel" styleClass="sub-header" text="0" />
+                              <Label text="Utilisateurs" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" onMouseClicked="#showStatistics" styleClass="dashboard-tile" GridPane.columnIndex="2">
+                           <children>
+                              <Label styleClass="header" text="📊" textFill="#f39c12">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="averageGradeLabel" styleClass="sub-header" text="0.0" />
+                              <Label text="Moyenne Générale" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" onMouseClicked="#showBackup" styleClass="dashboard-tile" GridPane.rowIndex="1">
+                           <children>
+                              <Label styleClass="header" text="💾" textFill="#27ae60">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lastBackupLabel" styleClass="sub-header" text="Jamais" />
+                              <Label text="Dernière Sauvegarde" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" styleClass="dashboard-tile" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label styleClass="header" text="🏆" textFill="#9b59b6">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="topStudentLabel" styleClass="sub-header" text="-" />
+                              <Label text="Meilleur Étudiant" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" styleClass="dashboard-tile" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <children>
+                              <Label styleClass="header" text="⏰" textFill="#34495e">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="systemStatusLabel" styleClass="sub-header" text="En Ligne" />
+                              <Label text="Statut Système" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </GridPane>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </StackPane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_LEFT" spacing="20.0">
+         <children>
+            <Label fx:id="statusLabel" text="Prêt" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="connectionStatusLabel" text="Base de données: Connectée" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>
