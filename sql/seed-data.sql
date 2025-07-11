@@ -5,14 +5,14 @@
 
 
 -- insert sample users (replace hashes with real bcrypt/PBKDF2))
-INSERT INTO app_user (username, email, password_hash, first_name, last_name, role)
+INSERT INTO users (username, email, password_hash, first_name, last_name, role)
 VALUES
     ('admin', 'admin@example.com', '$2a$10$XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'Adele', 'Petit', 'admin'),
     ('jdoe', 'jdoe@example.com', '$2a$10$YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY', 'John', 'Doe', 'user');
 
 -- insert sampe students
 
-INSERT INTO student (first_name, last_name, specialization, age, grade)
+INSERT INTO students (first_name, last_name, specialization, age, grade)
 VALUES
     ('Alice', 'Durand', 'Computer Science', 20, 'A'),
     ('Bob', 'Martin', 'Mathematics', 22, 'B'),

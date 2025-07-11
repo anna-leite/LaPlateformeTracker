@@ -9,9 +9,9 @@ CREATE DATABASE laplat_tracker_db
        TEMPLATE = template0
        CONNECTION LIMIT = -1;
   
-\connect laplat_tracker_bd;
+\connect laplat_tracker_db;
 
--- Create the USER table
+-- 2. Create the USER table
 
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
@@ -30,7 +30,7 @@ CREATE TABLE users (
 
 COMMENT ON TABLE users IS 'System users who can log in to LaPlateforme Tracker';
 
--- Create the STUDENT table
+-- 3. Create the STUDENT table
 
 DROP TABLE IF EXISTS students CASCADE;
 CREATE TABLE students (
@@ -45,9 +45,3 @@ CREATE TABLE students (
 );
 
 COMMENT ON TABLE students IS 'Student records including personal info, specialization and grade average';
-
--- (Optional) Grant privileges to the laplat_tracker_user
-
-GRANT SELECT, INSERT, UPDATE, DELETE
-  ON TABLE students, users,
-  TO laplat_tracker_user;
