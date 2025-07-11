@@ -5,8 +5,8 @@ target/
 .env
 notes.md
 
-# Leila's stuff
-.envrc
+# Ignore application.properties file
+src/main/resources/application.properties
 
 # Compiled class file
 *.class
